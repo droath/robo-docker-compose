@@ -15,11 +15,46 @@ class Up extends Base
     protected $action = 'up';
 
     /**
+     * Docker compose services.
+     *
+     * @var array
+     */
+    protected $services = [];
+
+    /**
      * Command detached mode.
      *
      * @var bool
      */
     protected $detachedMode = false;
+
+    /**
+     * Add docker composer service.
+     *
+     * @param string $service
+     *   The docker services.
+     */
+    public function setService($service)
+    {
+        $this->services[] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Add docker composer services.
+     *
+     * @param array $services
+     *   An array of services.
+     */
+    public function setServices(array $services)
+    {
+        foreach ($services as $service) {
+            $this->setService($service);
+        }
+
+        return $this;
+    }
 
     /**
      * Run containers in the background.
@@ -121,6 +156,15 @@ class Up extends Base
         $this->printTaskInfo('Docker Up: {command}', ['command' => $command]);
 
         return $this->executeCommand($command);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getCommand()
+    {
+        // Append the services to the end of the command.
+        return parent::getCommand() . ' ' . implode(' ', $this->services);
     }
 
     /**
