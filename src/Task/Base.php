@@ -2,6 +2,7 @@
 
 namespace Droath\RoboDockerCompose\Task;
 
+use Droath\RoboDockerCompose\ExecutableArguments;
 use Robo\Common\ExecOneCommand;
 use Robo\Exception\TaskException;
 use Robo\Task\BaseTask;
@@ -12,6 +13,7 @@ use Robo\Task\BaseTask;
 abstract class Base extends BaseTask
 {
     use ExecOneCommand;
+    use ExecutableArguments;
 
     /**
      * Executable.
@@ -35,11 +37,9 @@ abstract class Base extends BaseTask
      */
     public function __construct($pathToDockerCompose = null)
     {
-        $this->executable = $pathToDockerCompose;
-
-        if (!$this->executable) {
-            $this->executable = $this->findExecutablePhar('docker-compose');
-        }
+        $this->executable = isset($pathToDockerCompose)
+            ? $pathToDockerCompose
+            : $this->findExecutablePhar('docker-compose');
 
         if (!$this->executable) {
             throw new TaskException(
@@ -47,6 +47,66 @@ abstract class Base extends BaseTask
                 'Unable to find the docker-compose executable.'
             );
         }
+    }
+
+    /**
+     * Specify an alternate compose file.
+     *
+     * @param string $filename
+     *   An alternative docker composer file
+     */
+    public function file($filename)
+    {
+        if (!file_exists($filename)) {
+            throw new \InvalidArgumentException(
+                sprintf("File %s wasn't found on the filesystem", $filename)
+            );
+        }
+
+        $this->execOption('file', $filename);
+
+        return $this;
+    }
+
+    /**
+     * Specify multiple composer files.
+     *
+     * @param array $files
+     *   An array of alternative composer files.
+     */
+    public function files(array $files)
+    {
+        foreach ($files as $filename) {
+            $this->file($filename);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Specify an alternate project name.
+     *
+     * @param string
+     *   An alternative docker compose project name.
+     */
+    public function projectName($name)
+    {
+        $this->execOption('project-name', $name);
+
+        return $this;
+    }
+
+    /**
+     * Daemon socket to connect to.
+     *
+     * @param string $hostname
+     *   The name of the host to connect to.
+     */
+    public function host($hostname)
+    {
+        $this->execOption('host', $hostname);
+
+        return $this;
     }
 
     /**
@@ -70,6 +130,6 @@ abstract class Base extends BaseTask
      */
     protected function getCommand()
     {
-        return "{$this->executable} {$this->action} {$this->arguments}";
+        return "{$this->executable} {$this->executableArgs} {$this->action} {$this->arguments}";
     }
 }
