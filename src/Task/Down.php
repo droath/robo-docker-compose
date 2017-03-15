@@ -60,15 +60,4 @@ class Down extends Base
 
         return $this;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function run()
-    {
-        $command = $this->getCommand();
-        $this->printTaskInfo('Docker Down: {command}', ['command' => $command]);
-
-        return $this->executeCommand($command);
-    }
 }

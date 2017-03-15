@@ -150,17 +150,6 @@ class Up extends Base
     /**
      * {@inheritdoc}
      */
-    public function run()
-    {
-        $command = $this->getCommand();
-        $this->printTaskInfo('Docker Up: {command}', ['command' => $command]);
-
-        return $this->executeCommand($command);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function getCommand()
     {
         // Append the services to the end of the command.

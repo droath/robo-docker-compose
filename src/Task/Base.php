@@ -50,6 +50,20 @@ abstract class Base extends BaseTask
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function run()
+    {
+        $command = $this->getCommand();
+        $this->printTaskInfo(
+            'Running Docker-Compose: {command}',
+            ['command' => $command]
+        );
+
+        return $this->executeCommand($command);
+    }
+
+    /**
      * Get docker-compose command.
      *
      * @return string
