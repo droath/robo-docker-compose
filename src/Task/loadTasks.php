@@ -24,6 +24,16 @@ trait loadTasks
     }
 
     /**
+
+    /**
+     * Docker compose start task.
+     */
+    protected function taskDockerComposeStart($pathToDockerCompose = null)
+    {
+        return $this->task(Start::class, $pathToDockerCompose);
+    }
+
+    /**
      * Docker compose restart task.
      */
     protected function taskDockerComposeRestart($pathToDockerCompose = null)
