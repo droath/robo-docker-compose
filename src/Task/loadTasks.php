@@ -24,6 +24,12 @@ trait loadTasks
     }
 
     /**
+     * Docker compose pause task.
+     */
+    protected function taskDockerComposePause($pathToDockerCompose = null)
+    {
+        return $this->task(Pause::class, $pathToDockerCompose);
+    }
 
     /**
      * Docker compose start task.
