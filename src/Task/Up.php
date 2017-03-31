@@ -2,6 +2,7 @@
 
 namespace Droath\RoboDockerCompose\Task;
 
+use Droath\RoboDockerCompose\DockerServicesTrait;
 use Robo\Exception\TaskException;
 
 /**
@@ -9,17 +10,12 @@ use Robo\Exception\TaskException;
  */
 class Up extends Base
 {
+    use DockerServicesTrait;
+
     /**
      * {@inheritdoc}
      */
     protected $action = 'up';
-
-    /**
-     * Docker compose services.
-     *
-     * @var array
-     */
-    protected $services = [];
 
     /**
      * Command detached mode.
@@ -27,34 +23,6 @@ class Up extends Base
      * @var bool
      */
     protected $detachedMode = false;
-
-    /**
-     * Add docker composer service.
-     *
-     * @param string $service
-     *   The docker services.
-     */
-    public function setService($service)
-    {
-        $this->services[] = $service;
-
-        return $this;
-    }
-
-    /**
-     * Add docker composer services.
-     *
-     * @param array $services
-     *   An array of services.
-     */
-    public function setServices(array $services)
-    {
-        foreach ($services as $service) {
-            $this->setService($service);
-        }
-
-        return $this;
-    }
 
     /**
      * Run containers in the background.
@@ -145,15 +113,6 @@ class Up extends Base
         $this->option('remove-orphans');
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getCommand()
-    {
-        // Append the services to the end of the command.
-        return parent::getCommand() . ' ' . implode(' ', $this->services);
     }
 
     /**
