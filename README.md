@@ -34,6 +34,9 @@ The following commands have been implemented:
 
 - docker-compose up
 - docker-compose down
+- docker-compose start
+- docker-compose restart
+- docker-compose pause
 
 I'll be adding the rests of the docker-compose commands shortly. Or if you want
 to create a PR with additional commands that would be much appreciated.
