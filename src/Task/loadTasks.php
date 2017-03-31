@@ -16,7 +16,7 @@ trait loadTasks
     }
 
     /**
-     * Docker compose up task.
+     * Docker compose down task.
      */
     protected function taskDockerComposeDown($pathToDockerCompose = null)
     {
