@@ -4,13 +4,14 @@ namespace Droath\RoboDockerCompose\Task;
 
 use Droath\RoboDockerCompose\ExecutableArguments;
 use Robo\Common\ExecOneCommand;
+use Robo\Contract\CommandInterface;
 use Robo\Exception\TaskException;
 use Robo\Task\BaseTask;
 
 /**
  * Docker compose base class.
  */
-abstract class Base extends BaseTask
+abstract class Base extends BaseTask implements CommandInterface
 {
     use ExecOneCommand;
     use ExecutableArguments;
@@ -128,7 +129,7 @@ abstract class Base extends BaseTask
      *
      * @return string
      */
-    protected function getCommand()
+    public function getCommand()
     {
         return "{$this->executable} {$this->executableArgs} {$this->action} {$this->arguments}";
     }

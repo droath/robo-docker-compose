@@ -45,7 +45,7 @@ trait DockerServicesTrait
     /**
      * {@inheritdoc}
      */
-    protected function getCommand()
+    public function getCommand()
     {
         // Append the services to the end of the command.
         return parent::getCommand() . ' ' . implode(' ', $this->services);

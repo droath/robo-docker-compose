@@ -33,6 +33,7 @@ composer require droath/robo-docker-compose:~0.0.1
 The following commands have been implemented:
 
 - docker-compose up
+- docker-compose exec 
 - docker-compose down
 - docker-compose start
 - docker-compose restart
