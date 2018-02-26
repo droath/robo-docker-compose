@@ -7,7 +7,7 @@ Run docker compose commands from the Robo task runner.
 First, you'll need to download the robo docker compose library using composer:
 
 ```bash
-composer require droath/robo-docker-compose:~0.0.1
+composer require --dev droath/robo-docker-compose
 ```
 
 ### Example
