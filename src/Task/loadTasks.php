@@ -55,4 +55,11 @@ trait loadTasks
         return $this->task(Execute::class, $pathToDockerCompose);
     }
 
+    /**
+     * Docker compose build task.
+     */
+    protected function taskDockerComposeBuild($pathToDockerCompose = null)
+    {
+        return $this->task(Build::class, $pathToDockerCompose);
+    }
 }
