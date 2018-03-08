@@ -23,6 +23,8 @@ class Execute extends Base
      */
     protected $container;
 
+    protected $commandWrapper;
+
     /**
      * {@inheritdoc}
      */
@@ -42,6 +44,11 @@ class Execute extends Base
         return $this;
     }
 
+    public function setCommandWrapper($command) {
+        $this->commandWrapper = $command;
+
+        return $this;
+    }
     /**
      * Set execute command.
      *
@@ -148,6 +155,15 @@ class Execute extends Base
      */
     public function getCommand()
     {
-        return parent::getCommand() . " {$this->container} {$this->command}";
+        $this->arg($this->container);
+
+        if (isset($this->commandWrapper)) {
+            $command = $this->commandWrapper . ' ' . self::escape($this->command);
+        }
+        else {
+            $command = $this->command;
+        }
+
+        return parent::getCommand() . " {$command}";
     }
 }
