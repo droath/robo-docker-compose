@@ -148,6 +148,6 @@ class Execute extends Base
      */
     public function getCommand()
     {
-        return parent::getCommand() . "{$this->container} {$this->command}";
+        return parent::getCommand() . " {$this->container} {$this->command}";
     }
 }
