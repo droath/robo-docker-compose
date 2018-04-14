@@ -32,6 +32,14 @@ trait loadTasks
     }
 
     /**
+     * Docker compose pull task.
+     */
+    protected function taskDockerComposePull($pathToDockerCompose = null)
+    {
+        return $this->task(Pull::class, $pathToDockerCompose);
+    }
+
+    /**
      * Docker compose start task.
      */
     protected function taskDockerComposeStart($pathToDockerCompose = null)
@@ -54,5 +62,4 @@ trait loadTasks
     {
         return $this->task(Execute::class, $pathToDockerCompose);
     }
-
 }
