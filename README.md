@@ -34,6 +34,7 @@ The following commands have been implemented:
 
 - docker-compose up
 - docker-compose ps
+- docker-compose logs
 - docker-compose pull
 - docker-compose exec 
 - docker-compose down

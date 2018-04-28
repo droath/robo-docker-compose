@@ -24,6 +24,14 @@ trait loadTasks
     }
 
     /**
+     * Docker compose logs task.
+     */
+    protected function taskDockerComposeLogs($pathToDockerCompose = null)
+    {
+        return $this->task(Logs::class, $pathToDockerCompose);
+    }
+
+    /**
      * Docker compose down task.
      */
     protected function taskDockerComposeDown($pathToDockerCompose = null)
