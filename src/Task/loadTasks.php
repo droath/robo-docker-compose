@@ -16,6 +16,14 @@ trait loadTasks
     }
 
     /**
+     * Docker compose ps task.
+     */
+    protected function taskDockerComposePs($pathToDockerCompose = null)
+    {
+        return $this->task(Ps::class, $pathToDockerCompose);
+    }
+
+    /**
      * Docker compose down task.
      */
     protected function taskDockerComposeDown($pathToDockerCompose = null)

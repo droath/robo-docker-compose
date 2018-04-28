@@ -33,6 +33,7 @@ composer require --dev droath/robo-docker-compose
 The following commands have been implemented:
 
 - docker-compose up
+- docker-compose ps
 - docker-compose pull
 - docker-compose exec 
 - docker-compose down
