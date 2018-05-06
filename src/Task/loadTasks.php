@@ -16,6 +16,22 @@ trait loadTasks
     }
 
     /**
+     * Docker compose ps task.
+     */
+    protected function taskDockerComposePs($pathToDockerCompose = null)
+    {
+        return $this->task(Ps::class, $pathToDockerCompose);
+    }
+
+    /**
+     * Docker compose logs task.
+     */
+    protected function taskDockerComposeLogs($pathToDockerCompose = null)
+    {
+        return $this->task(Logs::class, $pathToDockerCompose);
+    }
+
+    /**
      * Docker compose down task.
      */
     protected function taskDockerComposeDown($pathToDockerCompose = null)
@@ -29,6 +45,14 @@ trait loadTasks
     protected function taskDockerComposePause($pathToDockerCompose = null)
     {
         return $this->task(Pause::class, $pathToDockerCompose);
+    }
+
+    /**
+     * Docker compose pull task.
+     */
+    protected function taskDockerComposePull($pathToDockerCompose = null)
+    {
+        return $this->task(Pull::class, $pathToDockerCompose);
     }
 
     /**
@@ -56,7 +80,7 @@ trait loadTasks
     }
 
     /**
-     * Docker compose execute task.
+     * Docker compose run task.
      */
     protected function taskDockerComposeRun($pathToDockerCompose = null)
     {
