@@ -5,11 +5,10 @@ namespace Droath\RoboDockerCompose\Task;
 use Droath\RoboDockerCompose\DockerServicesTrait;
 
 /**
- * Define docker compose pause command.
+ * Define docker compose build command.
  */
 class Build extends Base
 {
-
     use DockerServicesTrait;
 
     /**
@@ -18,45 +17,79 @@ class Build extends Base
     protected $action = 'build';
 
     /**
-     * Set the build-rm option
+     * Compress the build context using gzip.
+     *
+     * @return $this
      */
-    public function buildRm()
+    public function compress()
     {
-        $this->option('build-rm');
+        $this->option('compress');
+
+        return $this;
     }
 
     /**
-     * Set no-cache option
+     * Always remove intermediate containers.
+     *
+     * @return $this
+     */
+    public function forceRm()
+    {
+        $this->option('force-rm');
+
+        return $this;
+    }
+
+    /**
+     * Do not use cache when building the image.
+     *
+     * @return $this
      */
     public function noCache()
     {
         $this->option('no-cache');
+
+        return $this;
     }
 
     /**
-     * Use the pull option
+     * Always attempt to pull a newer version of the image.
+     *
+     * @return $this
      */
     public function pull()
     {
         $this->option('pull');
+
+        return $this;
     }
 
     /**
-     * Add a build arg.
+     * Sets memory limit for the build container.
      *
-     * @param $var
-     * @param $variable
+     * @param $value
+     *
+     * @return $this
      */
-    public function buildArg($var, $value)
+    public function memory($value)
     {
-        $this->option('build-arg', "{$var}={$value}");
+        $this->option('memory', $value);
+
+        return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * Set build-time variables for services.
+     *
+     * @param string $key
+     * @param string $value
+     *
+     * @return $this
      */
-    public function getCommand()
+    public function buildArg($key, $value)
     {
-        return "{$this->executable} {$this->executableArgs} {$this->action} {$this->arguments} " . implode(' ', $this->services);
+        $this->option('build-arg', "{$key}={$value}");
+
+        return $this;
     }
 }

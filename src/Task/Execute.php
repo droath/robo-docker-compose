@@ -2,53 +2,20 @@
 
 namespace Droath\RoboDockerCompose\Task;
 
-use Robo\Contract\CommandInterface;
+use Droath\RoboDockerCompose\DockerCommandTrait;
 
 /**
  * Docker compose execute command.
  */
 class Execute extends Base
 {
-    /**
-     * Execute command.
-     *
-     * @var string
-     */
-    protected $command;
-
-    /**
-     * Execute container.
-     *
-     * @var string.
-     */
-    protected $container;
-
-    protected $commandWrapper;
+    use DockerCommandTrait;
 
     /**
      * {@inheritdoc}
      */
     protected $action = 'exec';
 
-    /**
-     * Set docker container.
-     *
-     * @param $container
-     *   The container name.
-     * @return $this
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
-    public function setCommandWrapper($command) {
-        $this->commandWrapper = $command;
-
-        return $this;
-    }
     /**
      * Set execute command.
      *
@@ -59,10 +26,7 @@ class Execute extends Base
      */
     public function exec($command)
     {
-        if ($command instanceof CommandInterface) {
-            $command = $command->getCommand();
-        }
-        $this->command = $command;
+        $this->setCommand($command);
 
         return $this;
     }
@@ -148,22 +112,5 @@ class Execute extends Base
         $this->option('env', "{$key}={$value}");
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCommand()
-    {
-        $this->arg($this->container);
-
-        if (isset($this->commandWrapper)) {
-            $command = $this->commandWrapper . ' ' . self::escape($this->command);
-        }
-        else {
-            $command = $this->command;
-        }
-
-        return parent::getCommand() . " {$command}";
     }
 }
