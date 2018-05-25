@@ -96,6 +96,20 @@ abstract class Base extends BaseTask implements CommandInterface
 
         return $this;
     }
+    
+    
+    /**
+     * Specify an alternate project directory.
+     *
+     * @param string
+     *   A directory path for the base of the project.
+     */
+    public function projectDirectory($dir)
+    {
+        $this->execOption('project-directory', $dir);
+
+        return $this;
+    }
 
     /**
      * Daemon socket to connect to.
