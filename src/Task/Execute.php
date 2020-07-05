@@ -83,6 +83,21 @@ class Execute extends Base
     }
 
     /**
+     * Detect if session is interactive and
+     * disable pseudo-tty allocation accordingly.
+     *
+     * @return $this
+     */
+    public function autoTty()
+    {
+        $this->detectInteractive();
+        if (!$this->interactive) {
+            $this->disablePseudoTty();
+        }
+        return $this;
+    }
+
+    /**
      * Index of the container.
      *
      * @param $index
