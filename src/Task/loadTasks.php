@@ -48,6 +48,14 @@ trait loadTasks
     }
 
     /**
+     * Docker compose stop task.
+     */
+    protected function taskDockerComposeStop($pathToDockerCompose = null)
+    {
+        return $this->task(Stop::class, $pathToDockerCompose);
+    }
+
+    /**
      * Docker compose pull task.
      */
     protected function taskDockerComposePull($pathToDockerCompose = null)
